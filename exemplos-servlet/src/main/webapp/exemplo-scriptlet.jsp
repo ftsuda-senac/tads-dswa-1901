@@ -12,10 +12,11 @@
     <body>
         <%
             Produto p1 = new Produto(1L, "Bolo de chocolate",
-                    "descrição do bolo de chocolate",
-                    new BigDecimal(30.0), "http://lorempixel.com/g/300/300/");
-            Produto p2 = new Produto(1L, "Bolo de cenoura",
-                    "descrição do bolo de cenoura", new BigDecimal(20.0), "http://lorempixel.com/g/300/300/");
+                    "descrição do bolo de chocolate", new BigDecimal(30.0), 
+                    "http://lorempixel.com/g/300/300/");
+            Produto p2 = new Produto(2L, "Bolo de cenoura",
+                    "descrição do bolo de cenoura", new BigDecimal(20.0), 
+                    "http://lorempixel.com/g/300/300/");
             List<Produto> lista = Arrays.asList(p1, p2);
         %>
         <h1>Cake Web - JSP + Scriptlet</h1>
