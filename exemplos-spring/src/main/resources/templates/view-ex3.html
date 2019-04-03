@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exemplos Spring MVC</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Exemplo Spring MVC + Thymeleaf</h1>
+        <h2>Nome: <span th:text="${nome}">Zé</span></h2> <!-- OU data-th-text="${nome}" -->
+        <p>Número: <span th:text="${numero}">1234</span></p>
+        <p th:if="${idade != null}">Idade: <span th:text="${idade}">99</span></p>
+        <p th:if="${idade == null}">Data nascimento não informada</p>
+    </body>
+</html>
