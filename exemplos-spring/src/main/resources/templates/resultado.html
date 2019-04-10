@@ -12,7 +12,7 @@
     <body>
         <main class="container">
             <div class="row">
-                <section class="col-md-12">
+                <section class="col-md-12" th:if="${dados != null}">
                     <h1>Dados enviados</h1>
                     <div>ID: <span th:text="${dados.id}"></span></div>
                     <div>Nome: <span th:text="${dados.nome}"></span></div>
@@ -29,6 +29,9 @@
                             <li th:text="${interesse}"></li>
                         </ul>
                     </div>
+                </section>
+                <section class="col-md-12" th:if="${dados == null}">
+                    <h2>SEM DADOS</h2>
                 </section>
             </div>
         </main>

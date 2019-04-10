@@ -20,8 +20,8 @@
                         <div class="form-group row">
                             <label for="txtNome" class="col-sm-2 col-form-label">Nome</label>
                             <div class="col-sm-10">
-                                <input type="text" name="nome" class="form-control is-invalid" id="txtNome" placeholder="Nome" th:field="*{nome}">
-                                <div class="invalid-feedback">
+                                <input type="text" name="nome" class="form-control" th:classappend="${#fields.hasErrors('nome')}? is-invalid" id="txtNome" placeholder="Nome" th:field="*{nome}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
                                     Digite um nome.
                                 </div>
                             </div>
@@ -37,8 +37,8 @@
                         <div class="form-group row">
                             <label for="txtEmail" class="col-sm-2 col-form-label">E-mail</label>
                             <div class="col-sm-10">
-                                <input type="email" name="email" class="form-control is-invalid" id="txtEmail" placeholder="E-mail" th:field="*{email}">
-                                <div class="invalid-feedback">
+                                <input type="email" name="email" class="form-control" th:classappend="${#fields.hasErrors('email')}? is-invalid" id="txtEmail" placeholder="E-mail" th:field="*{email}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                                     Digite um e-mail.
                                 </div>
                             </div>
@@ -53,8 +53,8 @@
                         <div class="form-group row">
                             <label for="txtNumero" class="col-sm-2 col-form-label">Número da sorte</label>
                             <div class="col-sm-10">
-                                <input type="number" name="numeroSorte" class="form-control is-invalid" id="txtNumero" placeholder="Número de 1 a 99" th:field="*{numeroSorte}">
-                                <div class="invalid-feedback">
+                                <input type="number" name="numeroSorte" class="form-control" th:classappend="${#fields.hasErrors('numeroSorte')}? is-invalid" id="txtNumero" placeholder="Número de 1 a 99" th:field="*{numeroSorte}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('numeroSorte')}" th:errors="*{numeroSorte}">
                                     Digite um número válido.
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
                         <div class="form-group row">
                             <label for="txtAltura" class="col-sm-2 col-form-label">Altura</label>
                             <div class="col-sm-10">
-                                <input type="number" name="altura" class="form-control is-invalid" id="txtAltura" placeholder="Altura em metros com no máximo 2 casa decimais" th:field="*{altura}">
-                                <div class="invalid-feedback">
+                                <input type="number" name="altura" class="form-control" th:classappend="${#fields.hasErrors('altura')}? is-invalid" id="txtAltura" placeholder="Altura em metros com no máximo 2 casa decimais" th:field="*{altura}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('altura')}" th:errors="*{altura}">
                                     Digite uma altura válida.
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
                         <div class="form-group row">
                             <label for="txtPeso" class="col-sm-2 col-form-label">Peso</label>
                             <div class="col-sm-10">
-                                <input type="number" name="peso" class="form-control is-invalid" id="txtPeso" placeholder="Peso em Kg com no máximo 1 casa decimal" th:field="*{peso}">
-                                <div class="invalid-feedback">
+                                <input type="number" name="peso" class="form-control" th:classappend="${#fields.hasErrors('peso')}? is-invalid" id="txtPeso" placeholder="Peso em Kg com no máximo 1 casa decimal" th:field="*{peso}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">
                                     Digite um peso válido.
                                 </div>
                             </div>
@@ -83,8 +83,8 @@
                         <div class="form-group row">
                             <label for="txtDtNascimento" class="col-sm-2 col-form-label">Data de nascimento</label>
                             <div class="col-sm-10">
-                                <input type="date" name="dtNascimento" class="form-control is-invalid" id="txtDtNascimento" placeholder="Data no formato yyyy-MM-dd" th:field="*{dtNascimento}">
-                                <div class="invalid-feedback">
+                                <input type="date" name="dtNascimento" class="form-control" th:classappend="${#fields.hasErrors('dtNascimento')}? is-invalid" id="txtDtNascimento" placeholder="Data no formato yyyy-MM-dd" th:field="*{dtNascimento}">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('dtNascimento')}" th:errors="*{dtNascimento}">
                                     Digite uma data válida.
                                 </div>
                             </div>
@@ -115,23 +115,23 @@
                                 <legend class="col-form-label col-sm-2 pt-0">Interesses</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input is-invalid" type="checkbox" name="interesses" id="interessesTecnologia" value="Tecnologia" th:field="*{interesses}">
+                                        <input class="form-check-input" th:classappend="${#fields.hasErrors('interesses')}? is-invalid" type="checkbox" name="interesses" id="interessesTecnologia" value="Tecnologia" th:field="*{interesses}">
                                         <label class="form-check-label" for="interessesTecnologia">
                                             Tecnologia
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input is-invalid" type="checkbox" name="interesses" id="interessesGastronomia" value="Gastronomia" th:field="*{interesses}">
+                                        <input class="form-check-input" th:classappend="${#fields.hasErrors('interesses')}? is-invalid" type="checkbox" name="interesses" id="interessesGastronomia" value="Gastronomia" th:field="*{interesses}">
                                         <label class="form-check-label" for="interessesGastronomia">
                                             Gastronomia
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input is-invalid" type="checkbox" name="interesses" id="interessesViagens" value="Viagens" th:field="*{interesses}">
+                                        <input class="form-check-input" th:classappend="${#fields.hasErrors('interesses')}? is-invalid" type="checkbox" name="interesses" id="interessesViagens" value="Viagens" th:field="*{interesses}">
                                         <label class="form-check-label" for="interessesViagens">
                                             Viagens
                                         </label>
-                                        <div class="invalid-feedback">Selecione pelo menos uma opção</div>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('interesses')}" th:errors="*{interesses}">Selecione pelo menos uma opção</div>
                                     </div>
                                 </div>
                             </div>

@@ -14,14 +14,14 @@
             <div class="row">
                 <section class="col-md-12">
                     <h1>Formulário</h1>
-                    <form method="post" th:action="@{/formulario}" th:object="${dados}">
+                    <form method="post" th:action="@{/formulario}" th:object="${dados}" novalidate>
 
                         <input type="hidden" name="id" value="123" th:field="*{id}">
 
                         <div class="form-group row">
                             <label for="txtNome" class="col-sm-2 col-form-label">Nome</label>
                             <div class="col-sm-10">
-                                <input type="text" name="nome" class="form-control" id="txtNome" placeholder="Nome" th:field="*{nome}">
+                                <input type="text" name="nome" class="form-control" id="txtNome" placeholder="Nome" required th:field="*{nome}">
                             </div>
                         </div>
 
