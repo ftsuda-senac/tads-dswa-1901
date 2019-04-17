@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Índice de exemplos</h1>
+        <h3>Exemplos com métodos retornando String (classe ExemploController)</h3>
+        <ul>
+            <li><a th:href="@{/ex1}">Exemplo 1</a></li>
+            <li><a th:href="@{/ex2}">Exemplo 2</a></li>
+        </ul>
+        <h3>Exemplos com métodos retornando ModelAndView (classe OutroExemploController)</h3>
+        <ul>
+            <li><a th:href="@{/outro/ex2}">Exemplo 2</a></li>
+            <li><a th:href="@{/outro/ex3?nome={x}(x='Fulano')}">Exemplo 3 para nome=Fulano</a></li>
+            <li><a th:href="@{/outro/ex4/Fulano}">Exemplo 4 para username=Fulano</a></li>
+        </ul>
+    </body>
+</html>

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PrimeiroExemploController {
 
-    @GetMapping
+    @GetMapping("/ex1")
     public String ex1() {
         return "view-ex1";
     }
