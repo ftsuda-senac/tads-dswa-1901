@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /* http://sergiolopes.org/css-box-sizing-border-box/ */
+            *, *:before, *:after {
+                box-sizing: border-box;
+            }
+            html {
+                position: relative;
+                min-height: 100%;
+                overflow-y: scroll;
+            }
+            body {
+                margin: 0;
+                margin-bottom: 50px;
+            }
+            footer {
+                position: absolute;
+                bottom: 0;
+                height: 50px;
+                width: 100%;
+                
+                color: #f5f5f5;
+                background-color: #000;
+                text-align: center;
+            }
+            header {
+                background-color: chocolate;
+                padding: 20px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <header>
+                <h1>Cabeçalho padrão</h1>
+            </header>
+            <main layout:fragment="conteudo">
+                <h2>Conteúdo do template</h2>
+            </main>
+        </div>
+        <footer>
+            <p>&copy; Senac TADS DSW 2019</p>
+        </footer>
+    </body>
+</html>
