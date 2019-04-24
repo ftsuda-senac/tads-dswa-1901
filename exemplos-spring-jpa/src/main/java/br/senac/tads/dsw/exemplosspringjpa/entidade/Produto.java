@@ -9,32 +9,59 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author fernando.tsuda
  */
+@Entity
 public class Produto implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String nome;
 
+    @Column(length = 1000)
     private String descricao;
 
+    @Column(precision = 6, scale = 2, nullable = false)
     private BigDecimal precoCompra;
 
+    @Column(precision = 6, scale = 2, nullable = false)
     private BigDecimal precoVenda;
 
+    @Column(precision = 7, nullable = false)
     private int quantidade;
-
+    
+    @Column(nullable = false)
     private boolean disponivel;
 
+    @Column(nullable = false, insertable = true, updatable = false)
     private LocalDateTime dtCadastro;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "PRODUTO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "ID_PRODUTO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_CATEGORIA")
+    )
     private Set<Categoria> categorias;
 
     // "produto" é o atributo na classe ImagemProduto onde o @ManyToOne foi configurado
+    @OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
     private Set<ImagemProduto> imagens;
 
     private Set<Integer> idsCategorias;

@@ -7,18 +7,30 @@ package br.senac.tads.dsw.exemplosspringjpa.entidade;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author fernando.tsuda
  */
+@Entity
 public class Categoria implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 100, unique = true)
     private String nome;
 
     // "categorias" é o atributo na classe Produto onde o @ManyToMany foi configurado
+    @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
     private Set<Produto> produtos;
 
     public Categoria() {
