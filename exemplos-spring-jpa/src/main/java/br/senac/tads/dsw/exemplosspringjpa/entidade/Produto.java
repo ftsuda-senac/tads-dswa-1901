@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *
@@ -64,9 +65,10 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
     private Set<ImagemProduto> imagens;
 
+    @Transient
     private Set<Integer> idsCategorias;
 
-
+    @Transient
     private String observacoes;
 
     public Produto() {
