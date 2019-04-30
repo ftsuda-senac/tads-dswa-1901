@@ -29,12 +29,12 @@ public class ProdutoController {
 
     @GetMapping("/novo")
     public ModelAndView adicionarNovo() {
-        return new ModelAndView("produto/formulario").addObject(new Produto());
+        return new ModelAndView("produto/formulario").addObject("produto", new Produto());
     }
 
     @GetMapping("/{id}/editar")
     public ModelAndView editar(Long id) {
-        return new ModelAndView("produto/formulario").addObject(new Produto());
+        return new ModelAndView("produto/formulario").addObject("produto", new Produto());
     }
 
     @PostMapping("/salvar")
