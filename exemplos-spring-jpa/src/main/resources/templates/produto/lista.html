@@ -6,6 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Produtos</h1>
+        <div>
+            <div th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}"></div>
+            <table th:if="${produtos != null}" th:each="prod : ${produtos}">
+                <tr>
+                    <td th:text="${prod.id}"></td>
+                    <td th:text="${prod.nome}"></td>
+                    <td th:text="${prod.precoCompra}"></td>
+                    <td th:text="${prod.precoVenda}"></td>
+                    <td th:text="${prod.quantidade}"></td>
+                    <td th:text="${prod.disponivel}"></td>
+                    <td>Alterar | Excluir</td>
+                </tr>
+            </table>
+            <a th:href="@{/produto/novo}">Adicionar novo</a>
+        </div>
     </body>
 </html>
