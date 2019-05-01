@@ -18,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -26,6 +28,11 @@ import javax.persistence.Transient;
  * @author fernando.tsuda
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p"),
+    @NamedQuery(name = "Produto.findByCategoria", query = "SELECT DISTINCT p FROM Produto p INNER JOIN p.categorias c WHERE c.id IN :idCat"),
+    @NamedQuery(name = "Produto.findById", query = "SELECT p FROM Produto p LEFT JOIN FETCH p.categorias WHERE p.id = :idProd")
+})
 public class Produto implements Serializable {
 
     @Id
