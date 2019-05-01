@@ -7,23 +7,60 @@ package br.senac.tads.dsw.exemplosspringjpa.repository;
 
 import br.senac.tads.dsw.exemplosspringjpa.entidade.Produto;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author fernando.tsuda
  */
+@Repository
 public class ProdutoRepository {
-    
-    public List<Produto> findAll() {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public List<Produto> findAll(Integer offset, Integer quantidade) {
+        Query jpqlQuery
+                = entityManager.createQuery("SELECT p FROM Produto p")
+                        .setFirstResult(offset)
+                        .setMaxResults(quantidade);
+        return jpqlQuery.getResultList();
+    }
+
+    public List<Produto> findByCategoria(Integer idCat) {
         return null;
     }
-    
+
     public Produto findById(Long id) {
-        return null;
+        Query jpqlQuery
+                = entityManager
+                        .createQuery("SELECT p FROM Produto p WHERE p.id = :idProd")
+                        .setParameter("idProd", id);
+        Produto p = (Produto) jpqlQuery.getSingleResult();
+        return p;
     }
-    
+
+    @Transactional
     public void save(Produto p) {
-        
+        if (p.getId() == null) {
+            // Salva um novo produto
+            entityManager.persist(p);
+        } else {
+            // Atualiza um produto existente
+            entityManager.merge(p);
+        }
     }
-    
+
+    @Transactional
+    public void delete(Long id) {
+        // TEM QUE FAZER CONSULTA PARA ESTAR ASSOCIADO AO
+        // ENTITY MANAGER (ATTACHED)
+        Produto p = entityManager.find(Produto.class, id);
+        entityManager.remove(p);
+    }
+
 }
