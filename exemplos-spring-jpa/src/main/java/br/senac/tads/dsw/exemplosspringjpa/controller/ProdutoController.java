@@ -9,10 +9,13 @@ import br.senac.tads.dsw.exemplosspringjpa.entidade.Categoria;
 import br.senac.tads.dsw.exemplosspringjpa.entidade.Produto;
 import br.senac.tads.dsw.exemplosspringjpa.repository.CategoriaRepository;
 import br.senac.tads.dsw.exemplosspringjpa.repository.ProdutoRepository;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,14 +47,16 @@ public class ProdutoController {
             @RequestParam(name = "offset", defaultValue = "0") int offset,
             @RequestParam(name = "qtd", defaultValue = "100") int qtd,
             @RequestParam(name = "idsCat", required = false) List<Integer> idsCat) {
-        List<Produto> resultados;
-        if (idsCat != null && !idsCat.isEmpty()) {
-            // Busca pelos IDs das categorias informadas
-            resultados = produtoRepository.findByCategoria(idsCat);
-        } else {
-            // Lista todos os produtos usando paginacao
-            resultados = produtoRepository.findAll(offset, qtd);
-        }
+//        List<Produto> resultados;
+//        if (idsCat != null && !idsCat.isEmpty()) {
+//            // Busca pelos IDs das categorias informadas
+//            resultados = produtoRepository.findByCategoria(idsCat);
+//        } else {
+//            // Lista todos os produtos usando paginacao
+//            resultados = produtoRepository.findAll(offset, qtd);
+//        }
+//        return new ModelAndView("produto/lista").addObject("produtos", resultados);
+        List<Produto> resultados = produtoRepository.findByPrecoVendaGreaterThanAndPrecoVendaLessThan(new BigDecimal(100),new BigDecimal(400));
         return new ModelAndView("produto/lista").addObject("produtos", resultados);
     }
 
@@ -63,7 +68,24 @@ public class ProdutoController {
 
     @GetMapping("/{id}/editar")
     public ModelAndView editar(@PathVariable("id") Long id) {
-        Produto prod = produtoRepository.findById(id);
+        Optional<Produto> optProd = produtoRepository.findById(id);
+        Produto prod = optProd.get();
+        
+        if (prod.getCategorias() != null && !prod.getCategorias().isEmpty()) {
+            Set<Integer> idsCategorias = new HashSet<>();
+            for (Categoria cat : prod.getCategorias()) {
+                idsCategorias.add(cat.getId());
+            }
+            prod.setIdsCategorias(idsCategorias);
+        }
+        return new ModelAndView("produto/formulario")
+                .addObject("produto", prod);
+    }
+    
+    @GetMapping("/{nome}")
+    public ModelAndView editar2(@PathVariable("nome") String nome) {
+        Optional<Produto> optProd = produtoRepository.findByNome(nome);
+        Produto prod = optProd.get();
         
         if (prod.getCategorias() != null && !prod.getCategorias().isEmpty()) {
             Set<Integer> idsCategorias = new HashSet<>();
@@ -85,7 +107,8 @@ public class ProdutoController {
                 !produto.getIdsCategorias().isEmpty()) {
             Set<Categoria> categoriasSelecionadas = new HashSet<>();
             for (Integer idCat : produto.getIdsCategorias()) {
-                Categoria cat = categoriaRepository.findById(idCat);
+                Optional<Categoria> optCat = categoriaRepository.findById(idCat);
+                Categoria cat = optCat.get();
                 categoriasSelecionadas.add(cat);
                 cat.setProdutos(new HashSet<>(Arrays.asList(produto)));
             }
@@ -99,7 +122,7 @@ public class ProdutoController {
 
     @PostMapping("/{id}/remover")
     public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        produtoRepository.delete(id);
+        produtoRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("mensagemSucesso", 
                 "Produto ID " + id + " removido com sucesso");
         return new ModelAndView("redirect:/produto");
