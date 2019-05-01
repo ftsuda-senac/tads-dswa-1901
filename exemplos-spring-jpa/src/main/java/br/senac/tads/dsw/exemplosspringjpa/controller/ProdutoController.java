@@ -44,7 +44,14 @@ public class ProdutoController {
             @RequestParam(name = "offset", defaultValue = "0") int offset,
             @RequestParam(name = "qtd", defaultValue = "100") int qtd,
             @RequestParam(name = "idsCat", required = false) List<Integer> idsCat) {
-        List<Produto> resultados = produtoRepository.findAll(offset, qtd);
+        List<Produto> resultados;
+        if (idsCat != null && !idsCat.isEmpty()) {
+            // Busca pelos IDs das categorias informadas
+            resultados = produtoRepository.findByCategoria(idsCat);
+        } else {
+            // Lista todos os produtos usando paginacao
+            resultados = produtoRepository.findAll(offset, qtd);
+        }
         return new ModelAndView("produto/lista").addObject("produtos", resultados);
     }
 
@@ -91,7 +98,10 @@ public class ProdutoController {
     }
 
     @PostMapping("/{id}/remover")
-    public ModelAndView remover(Long id) {
+    public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        produtoRepository.delete(id);
+        redirectAttributes.addFlashAttribute("mensagemSucesso", 
+                "Produto ID " + id + " removido com sucesso");
         return new ModelAndView("redirect:/produto");
     }
 
