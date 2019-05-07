@@ -10,15 +10,16 @@ import br.senac.tads.dsw.exemplospringsecurity.entidade.UsuarioSistema;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author fernando.tsuda
  */
-public class UsuarioSistemaService {
+@Service
+public class UsuarioSistemaService implements UserDetailsService {
 
     private static final Map<String, UsuarioSistema> USUARIOS_CADASTRADOS
             = new LinkedHashMap<>();
@@ -38,7 +39,7 @@ public class UsuarioSistemaService {
                 Arrays.asList(new Papel("ROLE_PEAO"), new Papel("ROLE_GOD"))));
     }
 
-    //@Override
+    @Override
     public UsuarioSistema loadUserByUsername(String username)
             throws UsernameNotFoundException {
         if (USUARIOS_CADASTRADOS.containsKey(username)) {
