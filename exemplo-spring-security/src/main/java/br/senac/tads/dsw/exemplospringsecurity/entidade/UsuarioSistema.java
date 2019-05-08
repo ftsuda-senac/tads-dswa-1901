@@ -6,9 +6,7 @@
 package br.senac.tads.dsw.exemplospringsecurity.entidade;
 
 import br.senac.tads.dsw.exemplospringsecurity.SecurityConfig;
-import java.util.Collection;
 import java.util.List;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -39,7 +37,7 @@ public class UsuarioSistema implements UserDetails {
 
     public final void setSenha(String senhaAberta) {
         this.hashSenha = 
-                SecurityConfig.plainPasswordEncoder()
+                SecurityConfig.bcryptPasswordEncoder()
                         .encode(senhaAberta);
     }
 
