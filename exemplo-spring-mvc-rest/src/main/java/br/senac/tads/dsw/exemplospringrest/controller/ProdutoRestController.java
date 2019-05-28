@@ -39,13 +39,13 @@ public class ProdutoRestController {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    @CrossOrigin(origins = "*")
+    //@CrossOrigin(origins = "localhost:8080") // tentar acessar usando 127.0.0.1
     public List<Produto> listar() {
         return produtoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = "*")
+    //@CrossOrigin(origins = "*")
     public Produto obterPorId(@PathVariable("id") Long id) {
         Optional<Produto> optProduto = produtoRepository.findById(id);
         if (optProduto.isPresent()) {
@@ -55,7 +55,7 @@ public class ProdutoRestController {
     }
 
     @PostMapping(consumes = {"application/json"})
-    @CrossOrigin(origins = "*")
+    //@CrossOrigin(origins = "*")
     public Produto incluir(@RequestBody Produto produto) {
         if (produto.getId() == null) {
             produto.setDtCadastro(LocalDateTime.now());

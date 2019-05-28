@@ -39,7 +39,7 @@
             
             $("#msg").hide();
 
-            $.getJSON("http://10.135.167.15:8080/api/produto",
+            $.getJSON("api/produto",
                 function(dataJSON) {
                     for (let i = 0; i < dataJSON.length; i++) {
                         $("#itens").append(adicionarItemNaTabela(dataJSON[i]));
