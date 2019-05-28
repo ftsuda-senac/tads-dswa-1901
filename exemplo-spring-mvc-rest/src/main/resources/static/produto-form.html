@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulário</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            function enviarDados(ev) {
+                ev.preventDefault();
+                // CRIA O OBJETO PRODUTO A PARTIR DAS INFORMAÇÕES PREENCHIDAS NO FORM
+                var produto = {
+                    id : $("#itemId").val(),
+                    nome : $("#txtNome").val(),
+                    descricao : $("#txtDescricao").val(),
+                    precoCompra : $("#txtPrecoCompra").val(),
+                    precoVenda : $("#txtPrecoVenda").val(),
+                    quantidade : $("#txtQuantidade").val(),
+                    disponivel : $("#optDisponivelSim").is(":checked")
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "api/produto",
+                    data: JSON.stringify(produto),
+                    success: function(data) { alert('data: ' + data); },
+                    contentType: "application/json",
+                    dataType: "json"
+                });
+            }
+            $(function() {
+                /* https://stackoverflow.com/a/901144 */
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get("id") !== null) {
+                    $.getJSON("api/produto/" + urlParams.get("id"),
+                        function(dataJSON) {
+                            $("#titulo").text("Alteração de produto");
+                            $("#itemId").val(dataJSON.id);
+                            $("#txtNome").val(dataJSON.nome);
+                            $("#txtDescricao").val(dataJSON.descricao);
+                            $("#txtPrecoCompra").val(dataJSON.precoCompra);
+                            $("#txtPrecoVenda").val(dataJSON.precoVenda);
+                            $("#txtQuantidade").val(dataJSON.quantidade);
+                            if (dataJSON.disponivel) {
+                                $("#optDisponivelSim").prop("checked", true);
+                                $("#optDisponivelNao").prop("checked", false);
+                            } else {
+                                $("#optDisponivelSim").prop("checked", false);
+                                $("#optDisponivelNao").prop("checked", true);                                
+                            }
+                             
+                    });
+                }
+                $("#prodForm").submit(enviarDados);
+            });
+
+        </script>
+    </head>
+    <body>
+        <main class="container">
+            <div class="row">
+                <section class="col-md-12">
+                    <h1 id="titulo">Inclusão de produto</h1>
+                    <form novalidate id="prodForm">
+                        <input type="hidden" id="itemId" />
+
+                        <div class="form-group row">
+                            <label for="txtNome" class="col-sm-2 col-form-label">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="nome" class="form-control" id="txtNome" placeholder="Nome">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtDescricao" class="col-sm-2 col-form-label">Descrição</label>
+                            <div class="col-sm-10">
+                                <textarea name="descricao" class="form-control" id="txtDescricao" placeholder="Descrição"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtPrecoCompra" class="col-sm-2 col-form-label">Preço compra</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtPrecoCompra" placeholder="Preço de compra">
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtPrecoVenda" class="col-sm-2 col-form-label">Preço venda</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtPrecoVenda" placeholder="Preço de venda">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtQuantidade" class="col-sm-2 col-form-label">Quantidade</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtQuantidade" placeholder="Quantidade">
+                            </div>
+                        </div>
+
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-2 pt-0">Disponível</legend>
+                                <div class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="disponivel" id="optDisponivelSim" value="true">
+                                        <label class="form-check-label" for="optDisponivelSim">
+                                            Sim
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="disponivel" id="optDisponivelNao" value="false">
+                                        <label class="form-check-label" for="optDisponivelNao">
+                                            Não
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="row">
+                            <div class="col-md-3 offset-md-3">
+                                <a role="button" class="btn btn-block btn-outline-dark">Cancelar</a>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-block btn-success">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </main>
+
+    </body>
+</html>

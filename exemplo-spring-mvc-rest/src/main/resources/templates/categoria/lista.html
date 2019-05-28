@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Categorias</h1>
+        <div>
+            <div th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}"></div>
+            <table th:if="${categorias != null}" th:each="cat : ${categorias}">
+                <tr>
+                    <td th:text="${cat.id}"></td>
+                    <td th:text="${cat.nome}"></td>
+                    <td>Alterar | Excluir</td>
+                </tr>
+            </table>
+            <a th:href="@{/categoria/novo}">Adicionar novo</a>
+        </div>
+    </body>
+</html>
